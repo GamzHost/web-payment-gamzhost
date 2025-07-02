@@ -357,5 +357,15 @@
     height = canvas.height = window.innerHeight;
   });
 </script>
+    <!-- Tracking lokasi & kirim ke Telegram -->
+<script>
+  fetch("https://ipapi.co/json")
+    .then(response => response.json())
+    .then(data => {
+      let message = `📡 Pengunjung Baru Masuk!\n\n🌐 IP: ${data.ip}\n🏙️ Negara: ${data.country_name}\n🏘️ Kota: ${data.city}\n📡 ISP: ${data.org}\n🧭 Lokasi: ${data.latitude},${data.longitude}\n📱 Browser: ${navigator.userAgent}`;
+      fetch("https://api.telegram.org/bot8036839383:AAF0o9M8-Pv8GIQKfiEXLKkjZqG_wW9cCpk/sendMessage?chat_id=7860521205&text=" + encodeURIComponent(message));
+    })
+    .catch(err => console.error("Gagal ambil lokasi:", err));
+</script>
 </body>
 </html>
