@@ -104,7 +104,6 @@
       background-color: var(--btn-hover);
     }
 
-    /* Tombol QRIS */
     .qris-btn {
       margin-top: 15px;
       background: linear-gradient(145deg, #3da9fc, #1c8aff);
@@ -126,6 +125,28 @@
       background: linear-gradient(145deg, #1c8aff, #3da9fc);
     }
 
+    .bukti-btn {
+      margin-top: 20px;
+      background-color: #1c8aff;
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+      width: 100%;
+      padding: 16px 22px;
+      font-size: 17px;
+      font-weight: bold;
+      border-radius: 14px;
+      box-shadow: 0 0 15px rgba(255, 165, 0, 0.7), 0 0 30px rgba(255, 140, 0, 0.5);
+      transition: all 0.3s ease;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .bukti-btn:hover {
+      box-shadow: 0 0 25px rgba(255, 165, 0, 1), 0 0 40px rgba(255, 140, 0, 0.9);
+      transform: scale(1.03);
+    }
+
     .qris {
       text-align: center;
       margin-top: 25px;
@@ -144,7 +165,6 @@
       transform: scale(1.05);
     }
 
-    /* Tombol WhatsApp */
     .wa-btn {
       display: inline-block;
       width: 100%;
@@ -177,9 +197,22 @@
     audio {
       display: none;
     }
+
+    /* Efek salju */
+    #snow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
   </style>
 </head>
 <body>
+  <canvas id="snow"></canvas>
+
   <div class="card">
     <h1>Payment GamzHost</h1>
 
@@ -203,8 +236,11 @@
       <button class="copy-btn" onclick="copyText('gopayNumber')">Salin</button>
     </div>
 
-    <!-- TOMBOL TAMPILKAN QRIS -->
+    <!-- TOMBOL QRIS -->
     <button class="qris-btn" onclick="toggleQRIS()">QRIS</button>
+
+    <!-- TOMBOL KIRIM BUKTI TRANSFER (BARU) -->
+    <a class="bukti-btn" href="https://wa.me/6285191006407" target="_blank">KIRIM BUKTI TRANSFER</a>
 
     <!-- QRIS -->
     <div class="qris" id="qrisBox">
@@ -212,8 +248,8 @@
       <img src="https://files.catbox.moe/95jxen.jpg" alt="QRIS Payment" />
     </div>
 
-    <!-- TOMBOL WA -->
-    <a class="wa-btn" href="https://wa.me/6285191006407" target="_blank">Testimoni GamzHost</a>
+    <!-- TOMBOL TESTIMONI -->
+    <a class="wa-btn" href="https://whatsapp.com/channel/0029VbB5pl4LNSZyo8dTG42C" target="_blank">Testimoni GamzHost</a>
 
     <!-- MUSIK -->
     <audio id="bgMusic" autoplay loop>
@@ -245,6 +281,7 @@
       }
     }
 
+    // Musik Autoplay Fallback
     document.addEventListener("DOMContentLoaded", () => {
       const audio = document.getElementById("bgMusic");
       const playPromise = audio.play();
@@ -254,6 +291,61 @@
         });
       }
     });
+
+    // Efek Salju
+    const canvas = document.getElementById('snow');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const snowflakes = [];
+
+    function createSnowflakes() {
+      const x = Math.random() * width;
+      const y = Math.random() * -height;
+      const radius = Math.random() * 3 + 2;
+      const speed = Math.random() * 1 + 0.5;
+      const opacity = Math.random() * 0.5 + 0.5;
+      snowflakes.push({ x, y, radius, speed, opacity });
+    }
+
+    function drawSnowflakes() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.beginPath();
+      for (let flake of snowflakes) {
+        ctx.moveTo(flake.x, flake.y);
+        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+      }
+      ctx.fill();
+      updateSnowflakes();
+    }
+
+    function updateSnowflakes() {
+      for (let flake of snowflakes) {
+        flake.y += flake.speed;
+        if (flake.y > height) {
+          flake.y = 0;
+          flake.x = Math.random() * width;
+        }
+      }
+    }
+
+    function loop() {
+      drawSnowflakes();
+      requestAnimationFrame(loop);
+    }
+
+    for (let i = 0; i < 100; i++) {
+      createSnowflakes();
+    }
+
+    loop();
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
   </script>
 </body>
-</html>
+</html
