@@ -187,6 +187,29 @@
       transform: scale(1.02);
     }
 
+    .music-float-btn {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      width: 55px;
+      height: 55px;
+      font-size: 24px;
+      font-weight: bold;
+      border: none;
+      border-radius: 50%;
+      background-color: white;
+      color: #1c8aff;
+      box-shadow: 0 0 12px rgba(61, 169, 252, 0.6), 0 0 25px rgba(28, 138, 255, 0.4);
+      cursor: pointer;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .music-float-btn:hover {
+      box-shadow: 0 0 25px rgba(28, 138, 255, 0.9), 0 0 35px rgba(61, 169, 252, 0.6);
+      transform: scale(1.1);
+    }
+
     .footer {
       margin-top: 25px;
       text-align: center;
@@ -194,11 +217,6 @@
       color: var(--subtext);
     }
 
-    audio {
-      display: none;
-    }
-
-    /* Efek salju */
     #snow {
       position: fixed;
       top: 0;
@@ -215,10 +233,8 @@
 
   <div class="card">
     <h1>Payment GamzHost</h1>
-
     <img class="profile-img" src="https://files.catbox.moe/bgtckl.jpg" alt="Foto Profil" />
 
-    <!-- DANA -->
     <div class="payment-method">
       <div class="payment-info">
         <span>DANA</span>
@@ -227,7 +243,6 @@
       <button class="copy-btn" onclick="copyText('danaNumber')">Salin</button>
     </div>
 
-    <!-- GOPAY -->
     <div class="payment-method">
       <div class="payment-info">
         <span>GoPay</span>
@@ -236,28 +251,24 @@
       <button class="copy-btn" onclick="copyText('gopayNumber')">Salin</button>
     </div>
 
-    <!-- TOMBOL QRIS -->
     <button class="qris-btn" onclick="toggleQRIS()">QRIS</button>
-
-    <!-- TOMBOL KIRIM BUKTI TRANSFER (BARU) -->
     <a class="bukti-btn" href="https://wa.me/6285191006407" target="_blank">KIRIM BUKTI TRANSFER</a>
 
-    <!-- QRIS -->
     <div class="qris" id="qrisBox">
       <p><strong>Scan QRIS:</strong></p>
       <img src="https://files.catbox.moe/95jxen.jpg" alt="QRIS Payment" />
     </div>
 
-    <!-- TOMBOL TESTIMONI -->
     <a class="wa-btn" href="https://whatsapp.com/channel/0029VbB5pl4LNSZyo8dTG42C" target="_blank">Testimoni GamzHost</a>
 
-    <!-- MUSIK -->
     <audio id="bgMusic" autoplay loop>
       <source src="https://files.catbox.moe/ipplhu.m4a" type="audio/mpeg" />
     </audio>
 
     <div class="footer">©GamzHost</div>
   </div>
+
+  <button id="musicControl" class="music-float-btn" onclick="toggleMusic()">🙄</button>
 
   <script>
     function copyText(elementId) {
@@ -281,7 +292,18 @@
       }
     }
 
-    // Musik Autoplay Fallback
+    function toggleMusic() {
+      const audio = document.getElementById("bgMusic");
+      const button = document.getElementById("musicControl");
+      if (audio.paused) {
+        audio.play();
+        button.textContent = "🤩";
+      } else {
+        audio.pause();
+        button.textContent = "🙄";
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       const audio = document.getElementById("bgMusic");
       const playPromise = audio.play();
@@ -292,7 +314,6 @@
       }
     });
 
-    // Efek Salju
     const canvas = document.getElementById('snow');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -348,4 +369,4 @@
     });
   </script>
 </body>
-</html
+</html>
