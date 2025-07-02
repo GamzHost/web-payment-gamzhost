@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payment Page</title>
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --card: #151b2e;
+      --primary: #ffa94d;
+      --text: #e4e8f0;
+      --subtext: #7d88a1;
+      --btn: #ffa94d;
+      --btn-hover: #e38a28;
+      --highlight: #1c2337;
+      --blue: #3da9fc;
+      --blue-hover: #1c8aff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      background-color: var(--card);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 165, 0, 0.3),
+                  0 0 25px rgba(255, 165, 0, 0.2),
+                  0 0 35px rgba(255, 165, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 26px;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      margin: 0 auto 25px auto;
+      box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+    }
+
+    .payment-method {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--highlight);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 15px;
+    }
+
+    .payment-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .payment-info span {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .payment-info small {
+      font-size: 14px;
+      color: var(--subtext);
+    }
+
+    .copy-btn {
+      background-color: var(--btn);
+      color: black;
+      border: none;
+      padding: 6px 12px;
+      font-size: 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      background-color: var(--btn-hover);
+    }
+
+    /* Tombol QRIS */
+    .qris-btn {
+      margin-top: 15px;
+      background: linear-gradient(145deg, #3da9fc, #1c8aff);
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 0 15px rgba(61, 169, 252, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .qris-btn:hover {
+      box-shadow: 0 0 25px rgba(61, 169, 252, 0.9);
+      transform: scale(1.02);
+      background: linear-gradient(145deg, #1c8aff, #3da9fc);
+    }
+
+    .qris {
+      text-align: center;
+      margin-top: 25px;
+      display: none;
+    }
+
+    .qris img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .qris img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Tombol WhatsApp */
+    .wa-btn {
+      display: inline-block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      background: linear-gradient(145deg, #3da9fc, #1c8aff);
+      color: white;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(61, 169, 252, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .wa-btn:hover {
+      background: linear-gradient(145deg, #1c8aff, #3da9fc);
+      box-shadow: 0 0 30px rgba(61, 169, 252, 0.8);
+      transform: scale(1.02);
+    }
+
+    .footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--subtext);
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Payment GamzHost</h1>
+
+    <img class="profile-img" src="https://files.catbox.moe/bgtckl.jpg" alt="Foto Profil" />
+
+    <!-- DANA -->
+    <div class="payment-method">
+      <div class="payment-info">
+        <span>DANA</span>
+        <small id="danaNumber">0851-9100-6407</small>
+      </div>
+      <button class="copy-btn" onclick="copyText('danaNumber')">Salin</button>
+    </div>
+
+    <!-- GOPAY -->
+    <div class="payment-method">
+      <div class="payment-info">
+        <span>GoPay</span>
+        <small id="gopayNumber">0851-9100-6407</small>
+      </div>
+      <button class="copy-btn" onclick="copyText('gopayNumber')">Salin</button>
+    </div>
+
+    <!-- TOMBOL TAMPILKAN QRIS -->
+    <button class="qris-btn" onclick="toggleQRIS()">QRIS</button>
+
+    <!-- QRIS -->
+    <div class="qris" id="qrisBox">
+      <p><strong>Scan QRIS:</strong></p>
+      <img src="https://files.catbox.moe/95jxen.jpg" alt="QRIS Payment" />
+    </div>
+
+    <!-- TOMBOL WA -->
+    <a class="wa-btn" href="https://wa.me/6285191006407" target="_blank">Testimoni GamzHost</a>
+
+    <!-- MUSIK -->
+    <audio id="bgMusic" autoplay loop>
+      <source src="https://files.catbox.moe/ij3vsz.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="footer">©GamzHost</div>
+  </div>
+
+  <script>
+    function copyText(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Disalin: " + text);
+      }).catch(() => {
+        alert("Gagal menyalin.");
+      });
+    }
+
+    function toggleQRIS() {
+      const qris = document.getElementById("qrisBox");
+      const button = document.querySelector(".qris-btn");
+      if (qris.style.display === "none" || qris.style.display === "") {
+        qris.style.display = "block";
+        button.textContent = "Sembunyikan";
+      } else {
+        qris.style.display = "none";
+        button.textContent = "QRIS";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("bgMusic");
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.warn("Autoplay diblokir:", error);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
